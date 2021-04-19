@@ -23,7 +23,6 @@ const MyInput = styled(Input)({
   margin: 'auto',
   fontSize: '26px',
   textAlign: 'center',
-  // color: 'rgb(80, 23, 23)'
 })
 
 class ContactForm extends Component {
@@ -43,7 +42,6 @@ class ContactForm extends Component {
   resetState() {
     this.setState(INITIAL_STATE);
   }
-
 
   handleNewValue = ({ target }) => {
     const { value, name } = target;
@@ -70,7 +68,8 @@ class ContactForm extends Component {
        
         <FormControl>
           <InputLabel>
-            <Icon>person</Icon> Name</InputLabel>
+            <Icon>person</Icon>Name
+          </InputLabel>
           <MyInput
             label="Error"
             type="name"
@@ -81,8 +80,10 @@ class ContactForm extends Component {
         </FormControl>
 
         <FormControl >
-          <InputLabel> <Icon>phone</Icon>
-            Phone</InputLabel>
+          <InputLabel>
+            <Icon>phone</Icon>
+            Phone
+          </InputLabel>
           <MyInput
             type="text"
             key="number"
@@ -120,6 +121,5 @@ const mapDispathcToProps = dispatch => {
     sendToDataBase: (newContact) => dispatch(operations.addContact(newContact))
   }
 }
-
 
 export default connect(mapStateToProps, mapDispathcToProps)(ContactForm);

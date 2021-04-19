@@ -18,8 +18,6 @@ const useStyles = makeStyles({
         "& svg": {
                 height: '15px'
             }
-        
-            
     },
 });
 

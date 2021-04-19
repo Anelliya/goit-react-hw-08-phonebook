@@ -1,8 +1,9 @@
 import axios from "axios";
 import actions from '../auth/auth-actions'
+import { BASE_URL }  from '../../index'
 //import generateUniqueId from 'generate-unique-id';
 
-axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com/"
+axios.defaults.baseURL = BASE_URL;
 const setAxiosHeaderToken = (token) => axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 const unsetAxiosHeaderToken = () => axios.defaults.headers.common.Authorization = ``;
 
@@ -22,19 +23,17 @@ const registration = (user) =>
     }
      
 const login = (user) => 
+     async dispatch => {
+      dispatch(actions.loginRequest());
      
-    async dispatch => {
-    
-     dispatch(actions.loginRequest());
-     
-     try {
-        const response = await axios.post('/users/login', user);
-        setAxiosHeaderToken(response.data.token)
-        dispatch(actions.loginSuccess(response.data))
-     } catch (error) {
+      try {
+         const response = await axios.post('/users/login', user);
+         setAxiosHeaderToken(response.data.token)
+         dispatch(actions.loginSuccess(response.data))
+      } catch (error) {
           dispatch(actions.loginError(error))
+      }
      }
-    }
 
 const logout = () =>
     

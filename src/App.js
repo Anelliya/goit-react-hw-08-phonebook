@@ -7,12 +7,12 @@ import './App.css';
 import operations from './redux/auth/auth-operations'
 
 function App({ getCurrentUser }) {
-  useEffect( ()=>(getCurrentUser()),
+  useEffect(()=>(getCurrentUser()),
     []
   )
   
   return (
-    < div className="App" >
+    <div className="App">
       <Header className="App-header"/>
       <Routes />
     </div>

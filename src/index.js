@@ -6,6 +6,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+export const BASE_URL = 'https://goit-phonebook-api.herokuapp.com/';
+
 
 
 

@@ -8,7 +8,6 @@ import selectors from '../../redux/contacts/contactsSelectors'
 
 import styles from './styles/PhoneBook.module.css';
 
-
 const ContactList = ({ filteredContacts, error, loading, contacts, handleDeleteContact }) => {
   const dispatch = useDispatch();
   const [empty, setEmpty] = useState(false);
@@ -18,7 +17,6 @@ const ContactList = ({ filteredContacts, error, loading, contacts, handleDeleteC
 
   const handleClickBtn = (ev) => handleDeleteContact(ev.target.id);
  
-
   return (
     <div className={styles.contactList}>
       

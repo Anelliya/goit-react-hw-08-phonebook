@@ -22,7 +22,6 @@ const useStyles = makeStyles({
         color: 'lightcoral',
         backgroundColor: 'rgb(233, 229, 229)',
     }
-
 })
 
 const UserMenu = ({logout, user, authentificated}) => {
@@ -45,11 +44,11 @@ const UserMenu = ({logout, user, authentificated}) => {
             >Logout
             </Button>
         </div>
-     );
+     )
 }
 
 const mapStateToProp = (state) => ({
-    user: authSelectors.getUser(state),
+    user: authSelectors.getUser(state)
 })
 
 const mapDispatchToProp = dispatch =>({

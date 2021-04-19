@@ -16,7 +16,6 @@ const MainPage = lazy(() => {
     return import('./pages/MainPage' /* webpackChunkName: "main page" */)
 })
 
-
 const routes = [
     {
         key: 1,
@@ -37,8 +36,8 @@ const routes = [
     {
         key: 3,
         path: '/contacts',
-        redirect: '/login',
         private: true,
+        redirect: '/login',
         component: Contacts,
         exact: true
     },
