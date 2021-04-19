@@ -1,75 +1,68 @@
-import axios from "axios";
-import actions from '../auth/auth-actions'
-import { BASE_URL }  from '../../index'
+import axios from 'axios';
+import actions from '../auth/auth-actions';
+import { BASE_URL } from '../../index';
 //import generateUniqueId from 'generate-unique-id';
 
 axios.defaults.baseURL = BASE_URL;
-const setAxiosHeaderToken = (token) => axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-const unsetAxiosHeaderToken = () => axios.defaults.headers.common.Authorization = ``;
+const setAxiosHeaderToken = token =>
+	(axios.defaults.headers.common.Authorization = `Bearer ${token}`);
+const unsetAxiosHeaderToken = () =>
+	(axios.defaults.headers.common.Authorization = ``);
 
-const registration = (user) =>
-    
-    async dispatch => {
-    
-     dispatch(actions.registrationRequest());
-     
-     try {
-        const response = await axios.post('/users/signup', user);
-        setAxiosHeaderToken(response.data.token)
-        dispatch(actions.registrationSuccess(response.data))
-     } catch (error) {
-          dispatch(actions.registrationError(error))
-     }
-    }
-     
-const login = (user) => 
-     async dispatch => {
-      dispatch(actions.loginRequest());
-     
-      try {
-         const response = await axios.post('/users/login', user);
-         setAxiosHeaderToken(response.data.token)
-         dispatch(actions.loginSuccess(response.data))
-      } catch (error) {
-          dispatch(actions.loginError(error))
-      }
-     }
+const registration = user => async dispatch => {
+	dispatch(actions.registrationRequest());
 
-const logout = () =>
-    
-    async dispatch => {
+	try {
+		const response = await axios.post('/users/signup', user);
+		setAxiosHeaderToken(response.data.token);
+		dispatch(actions.registrationSuccess(response.data));
+	} catch (error) {
+		dispatch(actions.registrationError(error));
+	}
+};
 
-        dispatch(actions.logoutRequest());
-        
-        try {
-            await axios.post('/users/logout');
-            unsetAxiosHeaderToken();
-            dispatch(actions.logoutSuccess());  
-        } catch (error) {
-            dispatch(actions.logoutError(error))
-        }
-    }
+const login = user => async dispatch => {
+	dispatch(actions.loginRequest());
 
+	try {
+		const response = await axios.post('/users/login', user);
+		setAxiosHeaderToken(response.data.token);
+		dispatch(actions.loginSuccess(response.data));
+	} catch (error) {
+		dispatch(actions.loginError(error));
+	}
+};
 
-const getUser = () => async(dispatch, getState) => {
-    
-    const { auth: { token: persistedToken } } = getState();
+const logout = () => async dispatch => {
+	dispatch(actions.logoutRequest());
 
-    if(!persistedToken){
-        return;
-    }
-    setAxiosHeaderToken(persistedToken)
+	try {
+		await axios.post('/users/logout');
+		unsetAxiosHeaderToken();
+		dispatch(actions.logoutSuccess());
+	} catch (error) {
+		dispatch(actions.logoutError(error));
+	}
+};
 
-    dispatch(actions.getUserRequest());
+const getUser = () => async (dispatch, getState) => {
+	const {
+		auth: { token: persistedToken },
+	} = getState();
 
-    try {
-        const response = await axios.get('/users/current');
-        dispatch(actions.getUserSuccess(response.data))
+	if (!persistedToken) {
+		return;
+	}
+	setAxiosHeaderToken(persistedToken);
 
-    } catch (error) {
-        dispatch(actions.getUserError(error.message))
-    }
-}
+	dispatch(actions.getUserRequest());
 
- export  default { registration, login, logout,  getUser };
+	try {
+		const response = await axios.get('/users/current');
+		dispatch(actions.getUserSuccess(response.data));
+	} catch (error) {
+		dispatch(actions.getUserError(error.message));
+	}
+};
 
+export default { registration, login, logout, getUser };
